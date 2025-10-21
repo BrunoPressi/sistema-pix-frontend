@@ -8,14 +8,9 @@ export default function LoginPage() {
     const [senha, setSenha] = React.useState('')
 
     async function loginAction() {
-        'use server'; // <- isso indica que a função roda no servidor
-
         try {
-            const data = await login(cpf_cnpj, senha)
-            console.log(data)
-        }
-        catch (error: any) {
-            //console.log(error);
+            await login(cpf_cnpj, senha)
+        } catch (error: any) {
             setMessage(error.errorMessage)
         }
 
@@ -36,7 +31,12 @@ export default function LoginPage() {
                                 <div className="mt-2 w-80">
                                     <div
                                         className="flex items-center rounded-md bg-white/5 pl-3 outline-1 -outline-offset-1 outline-white/10 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-500 w-full">
-                                        <input id="cpf_cnpj" type="text" name="cpf_cnpj" onChange={(e) => setCpfCnpj(e.target.value)} placeholder='123.456.789.01 - XX.XXX.XXX/YYYY-ZZ' value={cpf_cnpj} required={true} pattern={'^(\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}|\\d{2}\\.\\d{3}\\.\\d{3}/\\d{4}-\\d{2})$'}
+                                        <input id="cpf_cnpj" type="text" name="cpf_cnpj"
+                                               onChange={(e) => setCpfCnpj(e.target.value)}
+                                               onClick={() => setMessage('')}
+                                               placeholder='123.456.789.01 - XX.XXX.XXX/YYYY-ZZ' value={cpf_cnpj}
+                                               required={true}
+                                               pattern={'^(\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}|\\d{2}\\.\\d{3}\\.\\d{3}/\\d{4}-\\d{2})$'}
                                                className="block w-full grow bg-transparent py-1.5 pr-3 pl-1 text-white focus:outline-none sm:text-sm/6"/>
                                     </div>
                                 </div>
@@ -51,7 +51,9 @@ export default function LoginPage() {
                                 <div className="mt-2">
                                     <div
                                         className="flex items-center rounded-md bg-white/5 pl-3 outline-1 -outline-offset-1 outline-white/10 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-500">
-                                        <input id="senha" type="password" name="senha" onChange={(e) => setSenha(e.target.value)} placeholder='Senha123' required={true}
+                                        <input id="senha" type="password" name="senha"
+                                               onChange={(e) => setSenha(e.target.value)} onClick={() => setMessage('')}
+                                               placeholder='Senha123' required={true}
                                                className="block min-w-0 max grow bg-transparent py-1.5 pr-3 pl-1 focus:outline-none sm:text-sm/6"/>
                                     </div>
                                 </div>
