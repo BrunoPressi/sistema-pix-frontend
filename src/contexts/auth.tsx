@@ -20,16 +20,35 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const [token, setToken] = useState<string | null>(() => {
         return Cookies.get('token') ?? null;
     });
+    const [userData, setUserData] = useState<JwtPayload | null>(() => {
+        const token = Cookies.get('token');
+        if (token) {
+            const decoded = decodeToken(token);
+            if (decoded.exp && decoded.exp * 1000 > Date.now()) {
+                return decoded;
+            } else {
+                Cookies.remove("token");
+                return null;
+            }
+        }
+        return null;
+    })
     const signed = Boolean(token);
-    const [userData, setUserData] = useState<JwtPayload | null>(null)
+
 
     React.useEffect(() => {
         if (token) {
-            setUserData(decodeToken(token))
+            const decoded = decodeToken(token);
+            if (decoded.exp && decoded.exp * 1000 < Date.now()) {
+                setToken(null);
+                setUserData(null);
+                Cookies.remove("token");
+                api.defaults.headers.Authorization = "";
+                return;
+            }
+            // Token válido
             api.defaults.headers.Authorization = `Bearer ${token}`;
-            Cookies.set('token', token);
         } else {
-            Cookies.remove('token');
             api.defaults.headers.Authorization = "";
         }
     }, [token]);
@@ -38,8 +57,10 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         try {
             const response = await loginAPI(cpf_cnpj, senha)
             const token = response.token;
+            const userData = decodeToken(token);
             setToken(token);
-            setUserData(decodeToken(token))
+            Cookies.set('token', token);
+            setUserData(userData)
             api.defaults.headers.Authorization = `Bearer ${token}`;
         } catch (error: any) {
             throw error.response?.data || error;
@@ -50,6 +71,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         await logoutAPI();
         Cookies.remove('token');
         setToken(null);
+        setUserData(null)
         api.defaults.headers.Authorization = "";
     };
 

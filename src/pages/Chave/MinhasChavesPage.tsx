@@ -1,6 +1,6 @@
 import {useContext, useEffect} from "react";
 import {AuthContext} from "../../contexts/auth.tsx";
-import {buscarChaves} from "../../services/api.ts";
+import {api, buscarChaves} from "../../services/api.ts";
 import {decodeToken} from "../../services/utils.ts";
 import React from "react";
 import {Link} from "react-router-dom";
@@ -8,12 +8,12 @@ import {Link} from "react-router-dom";
 export default function MinhasChavesPage() {
     const context = useContext(AuthContext);
     const token = decodeToken(context.token!);
-
     const [chaves, setChaves] = React.useState<any[] | null>(null);
 
     useEffect(() => {
         async function carregarChaves() {
             try {
+                api.defaults.headers.Authorization = `Bearer ${context.token}`;
                 const response = await buscarChaves(token.id);
                 setChaves(response.Chaves);
             }

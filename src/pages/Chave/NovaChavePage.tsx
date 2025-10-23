@@ -1,6 +1,6 @@
 import React, {useContext} from "react";
 import {Link, useNavigate} from "react-router-dom";
-import {criarChave} from "../../services/api.ts";
+import {api, criarChave} from "../../services/api.ts";
 import {AuthContext} from "../../contexts/auth.tsx";
 import {decodeToken} from "../../services/utils.ts";
 
@@ -14,6 +14,7 @@ export default function NovaChavePage() {
 
     const novaChaveAction = async () => {
         try {
+            api.defaults.headers.Authorization = `Bearer ${context.token}`;
             await criarChave(tipo, chave, token.id);
             navigate('/homePage');
         }

@@ -3,6 +3,7 @@ import {AuthContext} from "../../contexts/auth.tsx";
 import type {JwtPayload} from "jsonwebtoken";
 import {Link} from "react-router-dom";
 
+
 export default function HomePage() {
     const context = useContext(AuthContext)
     const userData: JwtPayload | null = context.userData;
@@ -56,7 +57,7 @@ export default function HomePage() {
 
                     <Link to={"/"}>
                         <div className="bg-gray-700 text-white rounded-xl p-6 hover:bg-gray-800 transition cursor-pointer"
-                             onClick={context.logout}>
+                             onClick={context!.logout}>
                             <h2 className="text-xl font-semibold mb-2">Sair</h2>
                             <p className="text-sm opacity-90">Encerrar sessão.</p>
                         </div>
