@@ -1,13 +1,14 @@
 import axios from 'axios';
 
-const api = axios.create({
+export const api = axios.create({
     baseURL: 'http://localhost:5001/v1',
     headers: {
         'Content-Type': 'application/json',
     },
 });
 
-export const login = async (cpf_cnpj: string, senha: string) => {
+
+export const loginAPI = async (cpf_cnpj: string, senha: string) => {
     try {
         const response = await api.post('/auth', { cpf_cnpj, senha });
         return response.data;
@@ -15,6 +16,15 @@ export const login = async (cpf_cnpj: string, senha: string) => {
         throw error.response?.data || error;
     }
 };
+
+export const logoutAPI = async () => {
+    try {
+        await api.post("/logout");
+    }
+    catch (error:any) {
+        throw error.response?.data || error;
+    }
+}
 
 export const criarConta = async (usuario: any) => {
     try {
@@ -27,12 +37,27 @@ export const criarConta = async (usuario: any) => {
                 rua: usuario.rua,
                 bairro: usuario.bairro,
                 cidade: usuario.cidade,
-                numero_conta: 9090
             }
         )
         return response.data;
     }
     catch (error: any) {
+        throw error.response?.data || error;
+    }
+}
+
+export const criarChave = async (tipo: string, chave: string, userID: number) => {
+    try {
+        const response = await api.post(`/chaves/${userID}`,
+            {
+                tipo: tipo,
+                chave: chave
+            }
+        );
+
+        return response.data;
+    }
+    catch(error: any) {
         throw error.response?.data || error;
     }
 }

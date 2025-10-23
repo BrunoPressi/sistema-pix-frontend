@@ -1,18 +1,14 @@
 import './App.css'
-import LoginPage from "../pages/Login/LoginPage.tsx";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import CadastroPage from "../pages/Cadastro/CadastroPage.tsx";
+import {RoutesApp} from "../routes";
+import {AuthProvider} from "../contexts/auth.tsx";
+
 
 function App() {
-
-  return (
-      <Router>
-          <Routes>
-              <Route path="/" element={<LoginPage />} />
-              <Route path="/CadastroPage" element={<CadastroPage />} />
-          </Routes>
-      </Router>
-  )
+    return (
+        <AuthProvider>
+            <RoutesApp/>
+        </AuthProvider>
+    )
 }
 
 export default App

@@ -28,7 +28,6 @@ export default function CadastroPage() {
     async function criarContaAction() {
         try {
             await criarConta(usuario)
-
             navigate("/")
         } catch (error: any) {
             if (error.errorMessage != null) {
@@ -79,7 +78,7 @@ export default function CadastroPage() {
                                        className="block text-sm/6 font-medium text-white">CPF/CNPJ</label>
                                 <div className="mt-2">
                                     <input id="cpfCnpj" type="text" name="cpfCnpj" required={true}
-                                           pattern={'^(\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}|\\d{2}\\.\\d{3}\\.\\d{3}/\\d{4}-\\d{2})$'}
+                                           pattern={'^(?:(?:\\d{3}\\.?\\d{3}\\.?\\d{3}-?\\d{2})|(?:\\d{2}\\.?\\d{3}\\.?\\d{3}/?\\d{4}-?\\d{2}))$'}
                                            onChange={(e) => setUsuario((prev) => ({...prev, cpf_cnpj: e.target.value}))}
                                            onClick={() => setMessage((prev) => ({...prev, cpf_cnpj: ''}))}
                                            value={usuario.cpf_cnpj}

@@ -1,15 +1,19 @@
-import React from "react";
-import {login} from "../../services/api.ts";
+import React, {useContext} from "react";
 import CadastroButton from "../../components/CadastroButton.tsx";
+import {AuthContext} from "../../contexts/auth.tsx";
+import {useNavigate} from "react-router-dom";
 
 export default function LoginPage() {
     const [message, setMessage] = React.useState('')
     const [cpf_cnpj, setCpfCnpj] = React.useState('')
     const [senha, setSenha] = React.useState('')
+    const { login } = useContext(AuthContext);
+    const navigate = useNavigate();
 
     async function loginAction() {
         try {
             await login(cpf_cnpj, senha)
+            navigate('HomePage')
         } catch (error: any) {
             setMessage(error.errorMessage)
         }
@@ -37,7 +41,8 @@ export default function LoginPage() {
                                                placeholder='123.456.789.01 - XX.XXX.XXX/YYYY-ZZ' value={cpf_cnpj}
                                                required={true}
                                                pattern={'^(\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}|\\d{2}\\.\\d{3}\\.\\d{3}/\\d{4}-\\d{2})$'}
-                                               className="block w-full grow bg-transparent py-1.5 pr-3 pl-1 text-white focus:outline-none sm:text-sm/6"/>
+                                               className="block w-full grow bg-transparent py-1.5 pr-3 pl-1 text-white focus:outline-none sm:text-sm/6"
+                                        />
                                     </div>
                                 </div>
                             </div>
