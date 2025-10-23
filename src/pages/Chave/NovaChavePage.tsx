@@ -1,5 +1,5 @@
 import React, {useContext} from "react";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {criarChave} from "../../services/api.ts";
 import {AuthContext} from "../../contexts/auth.tsx";
 import {decodeToken} from "../../services/utils.ts";
@@ -10,10 +10,12 @@ export default function NovaChavePage() {
     const [message, setMessage] = React.useState('');
     const context = useContext(AuthContext);
     const token = decodeToken(context.token!);
+    const navigate = useNavigate();
 
     const novaChaveAction = async () => {
         try {
             await criarChave(tipo, chave, token.id);
+            navigate('/homePage');
         }
         catch (error: any) {
             setMessage(error.errorMessage);
@@ -42,7 +44,7 @@ export default function NovaChavePage() {
                                             onChange={(e) => setTipo(e.target.value)}
                                             required={true}>
                                         <option value=''>Selecione o tipo da chave</option>
-                                        <option value="CPF">CPF</option>
+                                        <option value="cpf">CPF</option>
                                         <option value='telefone'>Telefone</option>
                                         <option value='email'>Email</option>
                                     </select>

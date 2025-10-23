@@ -61,3 +61,13 @@ export const criarChave = async (tipo: string, chave: string, userID: number) =>
         throw error.response?.data || error;
     }
 }
+
+export const buscarChaves = async (userId: number) => {
+    try {
+        const response = await api.get(`/usuarios/${userId}/chaves`);
+        return response.data;
+    }
+    catch (error: any) {
+        throw error.response?.data || error;
+    }
+}

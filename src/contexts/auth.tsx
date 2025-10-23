@@ -48,6 +48,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
     const logout = async () => {
         await logoutAPI();
+        Cookies.remove('token');
         setToken(null);
         api.defaults.headers.Authorization = "";
     };

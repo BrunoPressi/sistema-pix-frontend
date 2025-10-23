@@ -28,11 +28,14 @@ export default function HomePage() {
                     </Link>
 
 
-                    <div
-                        className="bg-green-500 text-white rounded-xl p-6 hover:bg-green-600 transition cursor-pointer">
-                        <h2 className="text-xl font-semibold mb-2">Minhas chaves</h2>
-                        <p className="text-sm opacity-90">Visualizar suas chaves pix</p>
-                    </div>
+                    <Link to={"/MinhasChavesPage"}>
+                        <div
+                            className="bg-green-500 text-white rounded-xl p-6 hover:bg-green-600 transition cursor-pointer">
+                            <h2 className="text-xl font-semibold mb-2">Minhas chaves</h2>
+                            <p className="text-sm opacity-90">Visualizar suas chaves pix</p>
+                        </div>
+                    </Link>
+
 
                     <div
                         className="bg-yellow-500 text-white rounded-xl p-6 hover:bg-yellow-600 transition cursor-pointer">
