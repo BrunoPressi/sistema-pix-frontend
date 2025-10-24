@@ -51,8 +51,8 @@ export default function HomePage() {
 
                      <div
                             className="bg-indigo-500 text-white rounded-xl p-6 hover:bg-indigo-600 transition cursor-pointer">
-                            <h2 className="text-xl font-semibold mb-2"></h2>
-                            <p className="text-sm opacity-90"></p>
+                            <h2 className="text-xl font-semibold mb-2">Perfil</h2>
+                            <p className="text-sm opacity-90">Visualizar meu perfil</p>
                      </div>
 
                     <Link to={"/"}>
