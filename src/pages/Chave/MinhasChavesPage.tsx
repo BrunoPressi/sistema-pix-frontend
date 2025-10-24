@@ -28,8 +28,8 @@ export default function MinhasChavesPage() {
 
         <>
 
-            <div className="w-full max-w-4xl p-6 bg-gray-800 rounded-xl shadow-lg">
-                <h2 className="text-xl font-semibold mb-4">Minhas Chaves</h2>
+        <div className="bg-white rounded-2xl p-8 w-full">
+            <h2 className="text-xl font-semibold mb-4 text-black">Minhas Chaves</h2>
 
                 <table className="w-full border-collapse">
                     <thead>
@@ -41,7 +41,7 @@ export default function MinhasChavesPage() {
                     </thead>
                     <tbody>
                         {chaves?.map((chave) => (
-                            <tr key={chave.id} className="border-b border-gray-700 hover:bg-gray-700/50">
+                            <tr key={chave.id} className="border-b border-gray-700 hover:bg-gray-700/50 text-black">
                                 <td className="p-3">{chave.id}</td>
                                 <td className="p-3">{chave.tipo}</td>
                                 <td className="p-3">{chave.chave}</td>
@@ -52,11 +52,11 @@ export default function MinhasChavesPage() {
                 <div className="mt-6 flex items-center justify-end gap-x-6">
 
                     <Link to={"/HomePage"}>
-                        <button className="text-sm/6 font-semibold text-white">Voltar</button>
+                        <button className="text-base font-semibold text-white">Voltar</button>
                     </Link>
                     <Link to={"/NovaChavePage"}>
                         <button
-                            className="rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">
+                            className="text-white rounded-md bg-indigo-500">
                             Nova Chave
                         </button>
                     </Link>
