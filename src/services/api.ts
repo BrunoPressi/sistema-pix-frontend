@@ -71,3 +71,12 @@ export const buscarChaves = async (userId: number) => {
         throw error.response?.data || error;
     }
 }
+
+export const excluirChave = async (chaveId: number) => {
+    try {
+        await api.delete(`/chaves/${chaveId}`)
+    }
+    catch (error: any) {
+        throw error.response?.data || error;
+    }
+}

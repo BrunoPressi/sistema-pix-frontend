@@ -1,6 +1,6 @@
 import {useContext, useEffect} from "react";
 import {AuthContext} from "../../contexts/auth.tsx";
-import {api, buscarChaves} from "../../services/api.ts";
+import {api, buscarChaves, excluirChave} from "../../services/api.ts";
 import {decodeToken} from "../../services/utils.ts";
 import React from "react";
 import {Link} from "react-router-dom";
@@ -10,17 +10,28 @@ export default function MinhasChavesPage() {
     const token = decodeToken(context.token!);
     const [chaves, setChaves] = React.useState<any[] | null>(null);
 
-    useEffect(() => {
-        async function carregarChaves() {
-            try {
-                api.defaults.headers.Authorization = `Bearer ${context.token}`;
-                const response = await buscarChaves(token.id);
-                setChaves(response.Chaves);
-            }
-            catch (error: any) {
-                console.log(error);
-            }
+    async function carregarChaves() {
+        try {
+            api.defaults.headers.Authorization = `Bearer ${context.token}`;
+            const response = await buscarChaves(token.id);
+            setChaves(response.Chaves);
         }
+        catch (error: any) {
+            console.log(error);
+        }
+    }
+
+    const excluirChaveOnClick = async (chaveId: number) => {
+        try {
+            await excluirChave(chaveId);
+            carregarChaves();
+        }
+        catch (error: any) {
+            console.log(error);
+        }
+    }
+
+    useEffect(() => {
         carregarChaves()
     }, [])
 
@@ -33,10 +44,11 @@ export default function MinhasChavesPage() {
 
                 <table className="w-full border-collapse">
                     <thead>
-                    <tr className="bg-gray-700 text-left">
+                    <tr className="bg-gray-700">
                         <th className="p-3">ID</th>
                         <th className="p-3">Tipo</th>
                         <th className="p-3">Chave</th>
+                        <th className="p-3"></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -45,6 +57,9 @@ export default function MinhasChavesPage() {
                                 <td className="p-3">{chave.id}</td>
                                 <td className="p-3">{chave.tipo}</td>
                                 <td className="p-3">{chave.chave}</td>
+                                <td className="p-3 text-red-600 text-sm">
+                                    <button onClick={() => excluirChaveOnClick(chave.id)} className="bg-gray">Excluir</button>
+                                </td>
                             </tr>
                         ))}
                     </tbody>
