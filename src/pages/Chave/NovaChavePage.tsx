@@ -16,7 +16,7 @@ export default function NovaChavePage() {
         try {
             api.defaults.headers.Authorization = `Bearer ${context.token}`;
             await criarChave(tipo, chave, token.id);
-            navigate('/homePage');
+            navigate('/MinhasChavesPage');
         }
         catch (error: any) {
             setMessage(error.errorMessage);

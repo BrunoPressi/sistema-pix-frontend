@@ -59,10 +59,8 @@ export default function CadastroPage() {
                                     <label htmlFor="nomeCompleto" className="block text-base font-medium text-black">Nome Completo</label>
                                     <div className="mt-2">
                                         <input id="nomeCompleto" type="text" name="nomeCompleto" required={true}
-                                               onChange={(e) => setUsuario((prev) => ({
-                                                   ...prev,
-                                                   nomeCompleto: e.target.value
-                                               }))} onClick={() => setMessage((prev) => ({...prev, nomeCompleto: ''}))}
+                                               onChange={(e) => setUsuario((prev) => ({...prev, nomeCompleto: e.target.value}))}
+                                               onClick={() => setMessage((prev) => ({...prev, nomeCompleto: ''}))}
                                                value={usuario.nomeCompleto}
                                                placeholder="Seu nome completo..."
                                                className="w-full bg-gray-800 text-white border border-gray-700 rounded-lg p-2"

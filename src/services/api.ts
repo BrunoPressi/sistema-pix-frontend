@@ -1,4 +1,5 @@
 import axios from 'axios';
+import type {UsuarioPatchDTO} from "../types/UsuarioPatchDTO.ts";
 
 export const api = axios.create({
     baseURL: 'http://localhost:5001/v1',
@@ -75,6 +76,31 @@ export const buscarChaves = async (userId: number) => {
 export const excluirChave = async (chaveId: number) => {
     try {
         await api.delete(`/chaves/${chaveId}`)
+    }
+    catch (error: any) {
+        throw error.response?.data || error;
+    }
+}
+
+export const buscarUsuarioPorId = async (usuarioId: number) => {
+    try {
+        const response = await api.get(`/usuarios/${usuarioId}`);
+        return response.data;
+    }
+    catch (error:any) {
+        throw error.response?.data || error;
+    }
+}
+
+export const atualizarUsuario = async (usuarioId: number, novoUsuario: UsuarioPatchDTO) => {
+    try {
+        const response = await api.patch(`/usuarios/${usuarioId}`, {
+            telefone: novoUsuario.telefone,
+            rua: novoUsuario.rua,
+            bairro: novoUsuario.bairro,
+            cidade: novoUsuario.cidade
+        });
+        return response;
     }
     catch (error: any) {
         throw error.response?.data || error;

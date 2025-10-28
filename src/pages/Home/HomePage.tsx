@@ -49,11 +49,13 @@ export default function HomePage() {
                         <p className="text-sm opacity-90">Visualizar suas transações</p>
                     </div>
 
-                     <div
+                    <Link to={"/PerfilPage"}>
+                        <div
                             className="bg-indigo-500 text-white rounded-xl p-6 hover:bg-indigo-600 transition cursor-pointer">
                             <h2 className="text-xl font-semibold mb-2">Perfil</h2>
                             <p className="text-sm opacity-90">Visualizar meu perfil</p>
-                     </div>
+                        </div>
+                    </Link>
 
                     <Link to={"/"}>
                         <div className="bg-gray-700 text-white rounded-xl p-6 hover:bg-gray-800 transition cursor-pointer"
