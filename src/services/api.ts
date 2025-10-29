@@ -1,5 +1,6 @@
 import axios from 'axios';
 import type {UsuarioPatchDTO} from "../types/UsuarioPatchDTO.ts";
+import {TransacaoCreateDTO} from "../types/TransacaoCreateDTO.ts";
 
 export const api = axios.create({
     baseURL: 'http://localhost:5001/v1',
@@ -101,6 +102,21 @@ export const atualizarUsuario = async (usuarioId: number, novoUsuario: UsuarioPa
             cidade: novoUsuario.cidade
         });
         return response;
+    }
+    catch (error: any) {
+        throw error.response?.data || error;
+    }
+}
+
+export const novaTransacao = async (transacao: TransacaoCreateDTO) => {
+    try {
+        const response = await api.post("/transacoes", {
+            valor: transacao.valor,
+            chaveOrigem: transacao.chaveOrigem,
+            chaveDestino: transacao.chaveDestino,
+            mensagem: transacao.mensagem
+        })
+        return response.data;
     }
     catch (error: any) {
         throw error.response?.data || error;

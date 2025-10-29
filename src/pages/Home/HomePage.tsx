@@ -37,12 +37,13 @@ export default function HomePage() {
                         </div>
                     </Link>
 
-
-                    <div
-                        className="bg-yellow-500 text-white rounded-xl p-6 hover:bg-yellow-600 transition cursor-pointer">
-                        <h2 className="text-xl font-semibold mb-2">Nova transação</h2>
-                        <p className="text-sm opacity-90">Criar nova transação</p>
-                    </div>
+                    <Link to={"/NovaTransacaoPage"}>
+                        <div
+                            className="bg-yellow-500 text-white rounded-xl p-6 hover:bg-yellow-600 transition cursor-pointer">
+                            <h2 className="text-xl font-semibold mb-2">Nova transação</h2>
+                            <p className="text-sm opacity-90">Criar nova transação</p>
+                        </div>
+                    </Link>
 
                     <div className="bg-red-500 text-white rounded-xl p-6 hover:bg-red-600 transition cursor-pointer">
                         <h2 className="text-xl font-semibold mb-2">Minhas transações</h2>
