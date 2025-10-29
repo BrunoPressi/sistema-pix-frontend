@@ -33,7 +33,8 @@ export default function PerfilPage() {
         telefone: '',
         bairro: '',
         cidade: '',
-        errorMessage: ''
+        errorMessage: '',
+        successMessage: ''
     });
     const [novoUsuario, setNovoUsuario] = React.useState<UsuarioPatchDTO>({
         telefone: '',
@@ -46,6 +47,9 @@ export default function PerfilPage() {
         try {
             const usuarioNovo = verifyPatchData(usuario!, novoUsuario);
             await atualizarUsuario(usuario!.id, usuarioNovo);
+            setMessage(message => ({
+                ...message, successMessage: 'Dados atualizados com sucesso!'
+            }));
         }
         catch (error: any) {
             if (error.errorMessage != null) {
@@ -176,18 +180,26 @@ export default function PerfilPage() {
                                         </div>
                                     </div>
                                 </div>
-                                <div
-                                    className="flex justify-end gap-3 px-6 py-4 border-t border-black">
-                                    <Link to="/HomePage">
+                                <div className="border-t border-black">
+                                    <div className="flex justify-evenly gap-3 pt-3">
+                                        {
+                                            message.successMessage ? <p className="text-red-600">{message.successMessage}</p>
+                                                :
+                                                ''
+                                        }
+                                        <Link to="/HomePage">
+                                            <button
+                                                type={"button"}
+                                                className="text-sm text-white">
+                                                <span>Voltar</span>
+                                            </button>
+                                        </Link>
                                         <button
-                                            className="text-sm text-white">
-                                            <span>Voltar</span>
+                                            type={"submit"}
+                                            className="text-sm bg-blue-500">
+                                            <span>Atualizar</span>
                                         </button>
-                                    </Link>
-                                    <button
-                                        className="text-sm bg-blue-500">
-                                        <span>Atualizar</span>
-                                    </button>
+                                    </div>
                                 </div>
                             </form>
                         </div>

@@ -74,15 +74,15 @@ export default function NovaChavePage() {
 
                     </div>
 
-                    <div className="mt-6 flex items-center justify-end gap-x-6">
+                    <div className="flex items-center justify-end gap-3">
                         <p className={`text-red-600 break-all whitespace-normal`}>
                             {message}
                         </p>
                         <Link to={"/HomePage"}>
-                            <button className="text-base font-semibold text-white">Voltar</button>
+                            <button className="text-base font-semibold text-white" type={"button"}>Voltar</button>
                         </Link>
                         <button type="submit"
-                                className="text-bae rounded-md bg-indigo-500 font-semibold text-white">Enviar
+                                className="text-base rounded-md bg-indigo-500 font-semibold text-white">Enviar
                         </button>
                     </div>
                 </form>

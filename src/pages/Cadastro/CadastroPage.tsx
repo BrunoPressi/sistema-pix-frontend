@@ -197,7 +197,7 @@ export default function CadastroPage() {
                             {message.errorMessage}
                         </p>
                         <Link to={"/"}>
-                            <button className="text-base text-white">Cancelar</button>
+                            <button className="text-base text-white" type={"button"}>Cancelar</button>
                         </Link>
                         <button type="submit"
                                 className="rounded-md bg-indigo-500 px-3 py-2 text-base text-white">Enviar
