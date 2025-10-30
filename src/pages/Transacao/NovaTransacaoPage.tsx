@@ -1,20 +1,25 @@
-import React, {useContext, useEffect} from "react";
+import React, {useEffect} from "react";
 import {Link} from "react-router-dom";
 import type {TransacaoCreateDTO} from "../../types/TransacaoCreateDTO.ts";
-import {api, buscarChaves, novaTransacao} from "../../services/api.ts";
-import {AuthContext} from "../../contexts/auth.tsx";
-import {decodeToken} from "../../services/utils.ts";
+import {api, novaTransacao} from "../../backend/api.ts";
+import {UsuarioService} from "../../services/UsuarioService.ts";
+import type {ChaveResponseDTO} from "../../types/ChaveResponseDTO.ts";
+import {tratarErros} from "../../Utils/Utils.ts";
+import {ChaveService} from "../../services/ChaveService.ts";
 
 export function NovaTransacaoPage() {
-    const context = useContext(AuthContext);
-    const token = decodeToken(context.token!);
+    const usuarioService = new UsuarioService();
+    const chaveService = new ChaveService([]);
+
     const [transacao, setTransacao] = React.useState<TransacaoCreateDTO>({
         valor: 0,
         chaveOrigem: '',
         chaveDestino: '' ,
         mensagem: ''
     });
-    const [chaves, setChaves] = React.useState<any[]>([]);
+
+    const [chaves, setChaves] = React.useState<ChaveResponseDTO[]>([]);
+
     const [message, setMessage] = React.useState({
         valor: '',
         chaveOrigem: '',
@@ -25,35 +30,21 @@ export function NovaTransacaoPage() {
 
     async function novaTransacaoAction() {
         try {
-            api.defaults.headers.Authorization = `Bearer ${context.token}`;
+            api.defaults.headers.Authorization = `Bearer ${usuarioService.getToken()}`;
             await novaTransacao(transacao);
         }
         catch (error: any) {
-            if (error.errorMessage != null) {
-                setMessage((prev) => ({...prev, errorMessage: error.errorMessage}));
-            } else {
-                const errorsLength = error.errors.length;
-                for (let i = 0; i < errorsLength; i++) {
-                    let pathError = error.errors[i].path;
-                    setMessage((prev) => ({...prev, [pathError]: error.errors[i].msg}));
-                }
-            }
+            tratarErros(error, setMessage);
         }
     }
 
-    async function carregarChaves() {
-        try {
-            api.defaults.headers.Authorization = `Bearer ${context.token}`;
-            const response = await buscarChaves(token.id);
-            setChaves(response.Chaves);
-        }
-        catch (error: any) {
-            console.log(error);
-        }
+    async function loadChaves() {
+        const chavesList: ChaveResponseDTO[] = await chaveService.carregarChaves();
+        setChaves(chavesList);
     }
 
     useEffect(() => {
-        carregarChaves()
+        loadChaves();
     }, []);
 
     return (

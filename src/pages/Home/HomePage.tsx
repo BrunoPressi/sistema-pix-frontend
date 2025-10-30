@@ -1,12 +1,9 @@
-import {useContext} from "react";
-import {AuthContext} from "../../contexts/auth.tsx";
-import type {JwtPayload} from "jsonwebtoken";
 import {Link} from "react-router-dom";
+import {UsuarioService} from "../../services/UsuarioService.ts";
 
 
 export default function HomePage() {
-    const context = useContext(AuthContext)
-    const userData: JwtPayload | null = context.userData;
+    const usuarioService = new UsuarioService();
 
     return (
 
@@ -15,8 +12,8 @@ export default function HomePage() {
 
             <div className="bg-white rounded-2xl shadow-lg p-8 max-w-4xl w-full text-center">
                 <div className="text-xl font-bold text-gray-800 mb-6">
-                    <h2 className="text-xl font-semibold mb-2">Bem-Vindo {userData!.nomeCompleto}</h2>
-                    <p className="text-base opacity-90">Número da conta: {userData!.numeroConta}</p>
+                    <h2 className="text-xl font-semibold mb-2">Bem-Vindo {usuarioService.getUserData()!.nomeCompleto}</h2>
+                    <p className="text-base opacity-90">Número da conta: {usuarioService.getUserData()!.numeroConta}</p>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -60,7 +57,7 @@ export default function HomePage() {
 
                     <Link to={"/"}>
                         <div className="bg-gray-700 text-white rounded-xl p-6 hover:bg-gray-800 transition cursor-pointer"
-                             onClick={context!.logout}>
+                             onClick={usuarioService.getContext().logout}>
                             <h2 className="text-xl font-semibold mb-2">Sair</h2>
                             <p className="text-sm opacity-90">Encerrar sessão.</p>
                         </div>

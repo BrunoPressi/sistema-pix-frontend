@@ -1,11 +1,11 @@
-import {useContext, useEffect} from "react";
-import {AuthContext} from "../../contexts/auth.tsx";
-import type {JwtPayload} from "jsonwebtoken";
-import {api, atualizarUsuario, buscarUsuarioPorId} from "../../services/api.ts";
+import {useEffect} from "react";
 import React from "react";
 import { Link } from "react-router-dom";
 import type {UsuarioPatchDTO} from "../../types/UsuarioPatchDTO.ts";
 import type {UsuarioDTO} from "../../types/UsuarioDTO.ts";
+import { tratarErros } from "../../Utils/Utils.ts";
+import { atualizarUsuario } from "../../backend/api.ts";
+import {UsuarioService} from "../../services/UsuarioService.ts";
 
 function verifyPatchData(usuarioVelho: UsuarioDTO, usuarioNovo: UsuarioPatchDTO) {
     if (usuarioNovo.telefone == '') {
@@ -25,8 +25,8 @@ function verifyPatchData(usuarioVelho: UsuarioDTO, usuarioNovo: UsuarioPatchDTO)
 }
 
 export default function PerfilPage() {
-    const context = useContext(AuthContext)
-    const userData: JwtPayload | null = context.userData;
+    const usuarioService = new UsuarioService();
+
     const [usuario, setUsuario] = React.useState<UsuarioDTO | null>(null);
     const [message, setMessage] = React.useState({
         rua: '',
@@ -52,28 +52,14 @@ export default function PerfilPage() {
             }));
         }
         catch (error: any) {
-            if (error.errorMessage != null) {
-                setMessage((prev) => ({...prev, errorMessage: error.errorMessage}));
-            } else {
-                const errorsLength = error.errors.length;
-                for (let i = 0; i < errorsLength; i++) {
-                    let pathError = error.errors[i].path;
-                    setMessage((prev) => ({...prev, [pathError]: error.errors[i].msg}));
-                }
-            }
+            tratarErros(error, setMessage);
         }
     }
 
     useEffect(() => {
-        const buscarUsuario = async () => {
-            try {
-                api.defaults.headers.Authorization = `Bearer ${context.token}`;
-                const response = await buscarUsuarioPorId(userData!.id);
-                setUsuario(response.Usuario);
-            }
-            catch (error: any) {
-                console.log(error);
-            }
+        async function buscarUsuario() {
+            const usuarioData = await usuarioService.carregarUsuario();
+            setUsuario(usuarioData);
         }
         buscarUsuario();
     }, [])

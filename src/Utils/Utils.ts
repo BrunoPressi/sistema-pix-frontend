@@ -15,3 +15,16 @@ export function decodeToken(token: string) {
         return null;
     }
 }
+
+export function tratarErros(error:any, setMessage:any) {
+
+    if (error.errorMessage != null) {
+        setMessage((prev: any) => ({...prev, errorMessage: error.errorMessage}));
+    } else {
+        const errorsLength = error.errors.length;
+        for (let i = 0; i < errorsLength; i++) {
+            let pathError = error.errors[i].path;
+            setMessage((prev: any) => ({...prev, [pathError]: error.errors[i].msg}));
+        }
+    }
+}

@@ -1,21 +1,24 @@
-import React, {useContext} from "react";
+import React from "react";
 import {Link, useNavigate} from "react-router-dom";
-import {api, criarChave} from "../../services/api.ts";
-import {AuthContext} from "../../contexts/auth.tsx";
-import {decodeToken} from "../../services/utils.ts";
+import {api, criarChave} from "../../backend/api.ts";
+import type {ChaveCreateDTO} from "../../types/ChaveCreateDTO.ts";
+import {UsuarioService} from "../../services/UsuarioService.ts";
 
 export default function NovaChavePage() {
-    const [tipo, setTipo] = React.useState('');
-    const [chave, setChave] = React.useState('');
-    const [message, setMessage] = React.useState('');
-    const context = useContext(AuthContext);
-    const token = decodeToken(context.token!);
+   const usuarioService = new UsuarioService();
     const navigate = useNavigate();
+
+    const [chave, setChave] = React.useState<ChaveCreateDTO>({
+        tipo: '',
+        chave: ''
+    });
+
+    const [message, setMessage] = React.useState('');
 
     const novaChaveAction = async () => {
         try {
-            api.defaults.headers.Authorization = `Bearer ${context.token}`;
-            await criarChave(tipo, chave, token.id);
+            api.defaults.headers.Authorization = `Bearer ${usuarioService.getToken()}`;
+            await criarChave(chave, usuarioService.getUserData()!.id);
             navigate('/MinhasChavesPage');
         }
         catch (error: any) {
@@ -43,7 +46,7 @@ export default function NovaChavePage() {
                                         <select id="tipo"
                                                 className="bg-gray-800 text-white border border-gray-700 rounded-lg p-2 w-64 focus:outline-none focus:ring-2 appearance-none"
                                                 name="tipo"
-                                                onChange={(e) => setTipo(e.target.value)}
+                                                onChange={(e) => setChave((prev) => ({...prev, tipo: e.target.value}))}
                                                 required={true}>
                                             <option value=''>Selecione o tipo da chave</option>
                                             <option value="cpf">CPF</option>
@@ -61,7 +64,7 @@ export default function NovaChavePage() {
                                     <div className="mt-2">
                                         <input id="chave" type="text" name="chave" required={true}
                                                placeholder="Digite a chave..."
-                                               onChange={(e) => setChave(e.target.value)}
+                                               onChange={(e) => setChave((prev) => ({...prev, chave: e.target.value}))}
                                                className="bg-gray-800 text-white border border-gray-700 rounded-lg p-2 w-64 focus:outline-none focus:ring-2 appearance-none"
                                         />
                                         <div className="h-5 mt-1">

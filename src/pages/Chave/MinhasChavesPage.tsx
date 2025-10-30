@@ -1,30 +1,17 @@
-import {useContext, useEffect} from "react";
-import {AuthContext} from "../../contexts/auth.tsx";
-import {api, buscarChaves, excluirChave} from "../../services/api.ts";
-import {decodeToken} from "../../services/utils.ts";
-import React from "react";
+import {excluirChave} from "../../backend/api.ts";
+import React, { useEffect } from "react";
 import {Link} from "react-router-dom";
+import {ChaveService} from "../../services/ChaveService.ts";
+import type {ChaveResponseDTO} from "../../types/ChaveResponseDTO.ts";
 
 export default function MinhasChavesPage() {
-    const context = useContext(AuthContext);
-    const token = decodeToken(context.token!);
-    const [chaves, setChaves] = React.useState<any[]>([]);
-
-    async function carregarChaves() {
-        try {
-            api.defaults.headers.Authorization = `Bearer ${context.token}`;
-            const response = await buscarChaves(token.id);
-            setChaves(response.Chaves);
-        }
-        catch (error: any) {
-            console.log(error);
-        }
-    }
+    const chaveService = new ChaveService([]);
+    const [chaves, setChaves] = React.useState<ChaveResponseDTO[]>([]);
 
     const excluirChaveOnClick = async (chaveId: number) => {
         try {
             await excluirChave(chaveId);
-            carregarChaves();
+            setChaves((prev) => prev.filter((chave) => chave.id !== chaveId));
         }
         catch (error: any) {
             console.log(error);
@@ -32,7 +19,18 @@ export default function MinhasChavesPage() {
     }
 
     useEffect(() => {
-        carregarChaves()
+        async function loadChaves() {
+
+            if (chaveService.getChaves().length == 0) {
+                const chaves: ChaveResponseDTO[] = await chaveService.carregarChaves();
+                chaveService.setChaves(chaves);
+                setChaves(chaveService.getChaves());
+            }
+            else {
+                setChaves(chaveService.getChaves());
+            }
+        }
+        loadChaves();
     }, [])
 
     return (
@@ -43,7 +41,7 @@ export default function MinhasChavesPage() {
             <h2 className="text-xl font-semibold mb-4 text-black">Minhas Chaves</h2>
 
                 {
-                    chaves.length != 0 ?
+                    chaves.length > 0 ?
                         <table className="w-full border-collapse">
                             <thead>
                             <tr className="bg-gray-700">

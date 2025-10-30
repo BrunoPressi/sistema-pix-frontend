@@ -1,16 +1,17 @@
 import { createContext, type ReactNode, useState } from "react";
-import {api, logoutAPI} from "../services/api";
-import { loginAPI } from "../services/api"
+import {api, logoutAPI} from "../backend/api.ts";
+import { loginAPI } from "../backend/api.ts"
 import React from "react";
 import Cookies from "js-cookie";
-import {decodeToken} from "../services/utils.ts";
+import {decodeToken} from "../Utils/Utils.ts";
 import type {JwtPayload} from "jsonwebtoken";
+import type {LoginDTO} from "../types/LoginDTO.ts";
 
 interface AuthContextData {
     signed: boolean;
     token: string | null;
     userData: JwtPayload | null;
-    login(cpf_cnpj: string, senha: string): Promise<void>;
+    loginContext(loginDto: LoginDTO): Promise<void>;
     logout(): void;
 }
 
@@ -53,9 +54,9 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         }
     }, [token]);
 
-    const login = async (cpf_cnpj: string, senha: string) => {
+    const loginContext = async (loginDTO: LoginDTO) => {
         try {
-            const response = await loginAPI(cpf_cnpj, senha)
+            const response = await loginAPI(loginDTO)
             const token = response.token;
             const userData = decodeToken(token);
             setToken(token);
@@ -76,7 +77,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     };
 
     return (
-        <AuthContext.Provider value={{ signed, token, userData, login, logout }}>
+        <AuthContext.Provider value={{ signed, token, userData, loginContext, logout }}>
             {children}
         </AuthContext.Provider>
     );

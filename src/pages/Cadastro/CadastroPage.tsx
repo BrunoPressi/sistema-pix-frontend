@@ -1,13 +1,15 @@
 import React from "react"
-import {criarConta} from "../../services/api.ts";
+import {criarConta} from "../../backend/api.ts";
 import {Link, useNavigate} from "react-router-dom";
+import {tratarErros} from "../../Utils/Utils.ts";
+import type {UsuarioCreateDTO} from "../../types/UsuarioCreateDTO.ts";
 
 export default function CadastroPage() {
     const navigate = useNavigate();
-    const [usuario, setUsuario] = React.useState({
+    const [usuario, setUsuario] = React.useState<UsuarioCreateDTO>({
         cpf_cnpj: '',
         senha: '',
-        nomeCompleto: '',
+        nome_completo: '',
         telefone: '',
         rua: '',
         bairro: '',
@@ -30,15 +32,7 @@ export default function CadastroPage() {
             await criarConta(usuario)
             navigate("/")
         } catch (error: any) {
-            if (error.errorMessage != null) {
-                setMessage((prev) => ({...prev, errorMessage: error.errorMessage}));
-            } else {
-                const errorsLength = error.errors.length;
-                for (let i = 0; i < errorsLength; i++) {
-                    let pathError = error.errors[i].path;
-                    setMessage((prev) => ({...prev, [pathError]: error.errors[i].msg}));
-                }
-            }
+            tratarErros(error, setMessage)
         }
     }
 
@@ -61,7 +55,7 @@ export default function CadastroPage() {
                                         <input id="nomeCompleto" type="text" name="nomeCompleto" required={true}
                                                onChange={(e) => setUsuario((prev) => ({...prev, nomeCompleto: e.target.value}))}
                                                onClick={() => setMessage((prev) => ({...prev, nomeCompleto: ''}))}
-                                               value={usuario.nomeCompleto}
+                                               value={usuario.nome_completo}
                                                placeholder="Seu nome completo..."
                                                className="w-full bg-gray-800 text-white border border-gray-700 rounded-lg p-2"
                                         />

@@ -1,6 +1,9 @@
 import axios from 'axios';
 import type {UsuarioPatchDTO} from "../types/UsuarioPatchDTO.ts";
 import {TransacaoCreateDTO} from "../types/TransacaoCreateDTO.ts";
+import type {ChaveCreateDTO} from "../types/ChaveCreateDTO.ts";
+import type {UsuarioCreateDTO} from "../types/UsuarioCreateDTO.ts";
+import type {LoginDTO} from "../types/LoginDTO.ts";
 
 export const api = axios.create({
     baseURL: 'http://localhost:5001/v1',
@@ -9,10 +12,22 @@ export const api = axios.create({
     },
 });
 
+api.interceptors.response.use(
+    response => response,
+    error => {
+        if (error.response?.status === 401) {
+            window.location.href = "*";
+        }
+        return Promise.reject(error);
+    }
+);
 
-export const loginAPI = async (cpf_cnpj: string, senha: string) => {
+export const loginAPI = async (loginDTO: LoginDTO) => {
     try {
-        const response = await api.post('/auth', { cpf_cnpj, senha });
+        const response = await api.post('/auth', {
+            cpf_cnpj: loginDTO.cpf_cnpj,
+            senha: loginDTO.senha
+        });
         return response.data;
     } catch (error: any) {
         throw error.response?.data || error;
@@ -28,17 +43,17 @@ export const logoutAPI = async () => {
     }
 }
 
-export const criarConta = async (usuario: any) => {
+export const criarConta = async (usuarioCreateDTO: UsuarioCreateDTO) => {
     try {
         const response = await api.post('/usuarios',
             {
-                cpf_cnpj: usuario.cpf_cnpj,
-                senha: usuario.senha,
-                nome_completo: usuario.nomeCompleto,
-                telefone: usuario.telefone,
-                rua: usuario.rua,
-                bairro: usuario.bairro,
-                cidade: usuario.cidade,
+                cpf_cnpj: usuarioCreateDTO.cpf_cnpj,
+                senha: usuarioCreateDTO.senha,
+                nome_completo: usuarioCreateDTO.nome_completo,
+                telefone: usuarioCreateDTO.telefone,
+                rua: usuarioCreateDTO.rua,
+                bairro: usuarioCreateDTO.bairro,
+                cidade: usuarioCreateDTO.cidade,
             }
         )
         return response.data;
@@ -48,12 +63,12 @@ export const criarConta = async (usuario: any) => {
     }
 }
 
-export const criarChave = async (tipo: string, chave: string, userID: number) => {
+export const criarChave = async (chaveCreateDto: ChaveCreateDTO, userID: number) => {
     try {
         const response = await api.post(`/chaves/${userID}`,
             {
-                tipo: tipo,
-                chave: chave
+                tipo: chaveCreateDto.tipo,
+                chave: chaveCreateDto.chave
             }
         );
 

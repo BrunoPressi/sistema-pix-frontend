@@ -2,17 +2,22 @@ import React, {useContext} from "react";
 import CadastroButton from "../../components/CadastroButton.tsx";
 import {AuthContext} from "../../contexts/auth.tsx";
 import {useNavigate} from "react-router-dom";
+import type {LoginDTO} from "../../types/LoginDTO.ts";
 
 export default function LoginPage() {
-    const [message, setMessage] = React.useState('')
-    const [cpf_cnpj, setCpfCnpj] = React.useState('')
-    const [senha, setSenha] = React.useState('')
-    const { login } = useContext(AuthContext);
+    const { loginContext } = useContext(AuthContext);
     const navigate = useNavigate();
+
+    const [login, setLogin] = React.useState<LoginDTO>({
+        cpf_cnpj: '',
+        senha: ''
+    })
+
+    const [message, setMessage] = React.useState('')
 
     async function loginAction() {
         try {
-            await login(cpf_cnpj, senha)
+            await loginContext(login)
             navigate('HomePage')
         } catch (error: any) {
             setMessage(error.errorMessage)
@@ -37,9 +42,9 @@ export default function LoginPage() {
                                         <div
                                             className="flex items-center rounded-md bg-white/5 pl-3 w-full">
                                             <input id="cpf_cnpj" type="text" name="cpf_cnpj"
-                                                   onChange={(e) => setCpfCnpj(e.target.value)}
+                                                   onChange={(e) => setLogin((prev) => ({...prev, cpf_cnpj: e.target.value}))}
                                                    onClick={() => setMessage('')}
-                                                   placeholder='123.456.789.01 - XX.XXX.XXX/YYYY-ZZ' value={cpf_cnpj}
+                                                   placeholder='123.456.789.01 - XX.XXX.XXX/YYYY-ZZ'
                                                    required={true}
                                                    pattern={'^(\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}|\\d{2}\\.\\d{3}\\.\\d{3}/\\d{4}-\\d{2})$'}
                                                    className="w-full bg-gray-800 text-white border border-gray-700 rounded-lg p-2"
@@ -58,7 +63,8 @@ export default function LoginPage() {
                                         <div
                                             className="flex items-center rounded-md bg-white/5 pl-3">
                                             <input id="senha" type="password" name="senha"
-                                                   onChange={(e) => setSenha(e.target.value)} onClick={() => setMessage('')}
+                                                   onChange={(e) => setLogin((prev) => ({...prev, senha: e.target.value}))}
+                                                   onClick={() => setMessage('')}
                                                    placeholder='Senha123' required={true}
                                                    className="w-full bg-gray-800 text-white border border-gray-700 rounded-lg p-2 focus:outline-none focus:ring-2 appearance-none"
                                             />
