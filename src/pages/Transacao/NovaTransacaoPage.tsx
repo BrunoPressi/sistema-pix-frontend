@@ -25,13 +25,19 @@ export function NovaTransacaoPage() {
         chaveOrigem: '',
         chaveDestino: '',
         mensagem: '',
-        errorMessage: ''
+        errorMessage: '',
+        successMessage: ''
     });
 
     async function novaTransacaoAction() {
         try {
             api.defaults.headers.Authorization = `Bearer ${usuarioService.getToken()}`;
             await novaTransacao(transacao);
+            setMessage((prev) => ({...prev, successMessage: 'Transação realizada com sucesso!'}));
+            setTransacao((prev) => ({...prev, valor: 0}));
+            setTransacao((prev) => ({...prev, chaveOrigem: ''}));
+            setTransacao((prev) => ({...prev, chaveDestino: ''}));
+            setTransacao((prev) => ({...prev, mensagem: ''}));
         }
         catch (error: any) {
             tratarErros(error, setMessage);
@@ -65,7 +71,9 @@ export function NovaTransacaoPage() {
                                     <div className="mt-2">
                                         <input id="valor" type="number" name="valor" required={true}
                                                onChange={(e) => setTransacao((prev) => ({...prev, valor: Number(e.target.value)}))}
+                                               onClick={() => setMessage((prev) => ({...prev, valor: '', errorMessage: ''}))}
                                                className="w-full bg-gray-800 text-white border border-gray-700 rounded-lg p-2"
+                                               value={transacao.valor}
                                         />
                                         {message ? <p className="text-red-600">{message.valor}</p> : ''}
                                     </div>
@@ -76,6 +84,8 @@ export function NovaTransacaoPage() {
                                     <div className="mt-2">
                                         <select id="chaveOrigem" name="chaveOrigem" required={true}
                                                 className="w-full bg-gray-800 text-white border border-gray-700 rounded-lg p-2"
+                                                onClick={() => setMessage((prev) => ({...prev, chaveOrigem: '', errorMessage: ''}))}
+                                                value={transacao.chaveOrigem}
                                                 onChange={(e) => setTransacao((prev) => ({...prev, chaveOrigem: e.target.value}))}>
                                                 <option value=''>Selecione a chave de origem</option>
                                                 {chaves?.map((chave) => (
@@ -91,8 +101,10 @@ export function NovaTransacaoPage() {
                                            className="block text-base font-medium text-black">Chave de Destino</label>
                                     <div className="mt-2">
                                         <input id="chaveDestino" type="text" name="chaveDestino" required={true}
+                                               onClick={() => setMessage((prev) => ({...prev, chaveDestino: '', errorMessage: ''}))}
                                                onChange={(e) => setTransacao((prev) => ({...prev, chaveDestino: e.target.value}))}
                                                className="w-full bg-gray-800 text-white border border-gray-700 rounded-lg p-2"
+                                               value={transacao.chaveDestino}
                                         />
                                         {message ? <p className="text-red-600">{message.chaveDestino}</p> : ''}
                                     </div>
@@ -104,6 +116,7 @@ export function NovaTransacaoPage() {
                                     <input id="mensagem" type="text" name="mensagem" required={false}
                                            onChange={(e) => setTransacao((prev) => ({...prev, mensagem: e.target.value}))}
                                            className="w-full bg-gray-800 text-white border border-gray-700 rounded-lg p-2"
+                                           value={transacao.mensagem}
                                     />
                                     {message ? <p className="text-red-600">{message.mensagem}</p> : ''}
                                 </div>
@@ -113,7 +126,8 @@ export function NovaTransacaoPage() {
                     </div>
 
                     <div className="flex items-center justify-end gap-x-6 mt-6">
-                        <p className={`text-red-600 break-all whitespace-normal`}>{message.errorMessage}</p>
+                        <p className={`text-red-600 break-all whitespace-normal`}>{message?.errorMessage}</p>
+                        <p className={`text-green-700 break-all whitespace-normal`}>{message?.successMessage}</p>
                         <Link to={"/HomePage"}>
                             <button className="text-base text-white" type={"button"}>Cancelar</button>
                         </Link>
