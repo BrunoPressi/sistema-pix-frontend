@@ -1,8 +1,8 @@
 import axios from 'axios';
-import type {UsuarioPatchDTO} from "../types/UsuarioPatchDTO.ts";
-import {TransacaoCreateDTO} from "../types/TransacaoCreateDTO.ts";
-import type {ChaveCreateDTO} from "../types/ChaveCreateDTO.ts";
-import type {UsuarioCreateDTO} from "../types/UsuarioCreateDTO.ts";
+import type {UsuarioPatchDTO} from "../types/UsuarioTypes/UsuarioPatchDTO.ts";
+import {TransacaoCreateDTO} from "../types/TransacaoTypes/TransacaoCreateDTO.ts";
+import type {ChaveCreateDTO} from "../types/ChaveTypes/ChaveCreateDTO.ts";
+import type {UsuarioCreateDTO} from "../types/UsuarioTypes/UsuarioCreateDTO.ts";
 import type {LoginDTO} from "../types/LoginDTO.ts";
 
 export const api = axios.create({
@@ -15,7 +15,8 @@ export const api = axios.create({
 api.interceptors.response.use(
     response => response,
     error => {
-        if (error.response?.status === 401) {
+        console.log(error);
+        if (error.response?.status === 401 && error.response.data.errorMessage == 'Token expirado') {
             window.location.href = "*";
         }
         return Promise.reject(error);

@@ -46,6 +46,7 @@ export default function LoginPage() {
                                                    onClick={() => setMessage('')}
                                                    placeholder='123.456.789.01 - XX.XXX.XXX/YYYY-ZZ'
                                                    required={true}
+                                                   value={login.cpf_cnpj}
                                                    pattern={'^(\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}|\\d{2}\\.\\d{3}\\.\\d{3}/\\d{4}-\\d{2})$'}
                                                    className="w-full bg-gray-800 text-white border border-gray-700 rounded-lg p-2"
                                             />

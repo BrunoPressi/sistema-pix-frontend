@@ -2,7 +2,7 @@ import React from "react"
 import {criarConta} from "../../backend/api.ts";
 import {Link, useNavigate} from "react-router-dom";
 import {tratarErros} from "../../utils/Utils.ts";
-import type {UsuarioCreateDTO} from "../../types/UsuarioCreateDTO.ts";
+import type {UsuarioCreateDTO} from "../../types/UsuarioTypes/UsuarioCreateDTO.ts";
 
 export default function CadastroPage() {
     const navigate = useNavigate();

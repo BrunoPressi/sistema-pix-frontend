@@ -1,4 +1,4 @@
-import type {TransacaoResponseDTO} from "../types/TransacaoResponseDTO.ts";
+import type {TransacaoResponseDTO} from "../types/TransacaoTypes/TransacaoResponseDTO.ts";
 import {UsuarioService} from "./UsuarioService.ts";
 import {api, buscarTransacoes} from "../backend/api.ts";
 

@@ -1,9 +1,9 @@
 import React, {useEffect} from "react";
 import {Link} from "react-router-dom";
-import type {TransacaoCreateDTO} from "../../types/TransacaoCreateDTO.ts";
+import type {TransacaoCreateDTO} from "../../types/TransacaoTypes/TransacaoCreateDTO.ts";
 import {api, novaTransacao} from "../../backend/api.ts";
 import {UsuarioService} from "../../services/UsuarioService.ts";
-import type {ChaveResponseDTO} from "../../types/ChaveResponseDTO.ts";
+import type {ChaveResponseDTO} from "../../types/ChaveTypes/ChaveResponseDTO.ts";
 import {tratarErros} from "../../utils/Utils.ts";
 import {ChaveService} from "../../services/ChaveService.ts";
 

@@ -1,4 +1,4 @@
-import  {type ChaveResponseDTO} from "./ChaveResponseDTO.ts";
+import  {type ChaveResponseDTO} from "../ChaveTypes/ChaveResponseDTO.ts";
 
 export class TransacaoResponseDTO {
     id: number;

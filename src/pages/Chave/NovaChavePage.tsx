@@ -1,7 +1,7 @@
 import React from "react";
 import {Link, useNavigate} from "react-router-dom";
 import {api, criarChave} from "../../backend/api.ts";
-import type {ChaveCreateDTO} from "../../types/ChaveCreateDTO.ts";
+import type {ChaveCreateDTO} from "../../types/ChaveTypes/ChaveCreateDTO.ts";
 import {UsuarioService} from "../../services/UsuarioService.ts";
 
 export default function NovaChavePage() {

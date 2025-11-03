@@ -2,7 +2,7 @@ import {excluirChave} from "../../backend/api.ts";
 import React, { useEffect } from "react";
 import {Link} from "react-router-dom";
 import {ChaveService} from "../../services/ChaveService.ts";
-import type {ChaveResponseDTO} from "../../types/ChaveResponseDTO.ts";
+import type {ChaveResponseDTO} from "../../types/ChaveTypes/ChaveResponseDTO.ts";
 
 export default function MinhasChavesPage() {
     const chaveService = new ChaveService([]);

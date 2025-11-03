@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import type { TransacaoResponseDTO } from "../../types/TransacaoResponseDTO.ts";
+import type { TransacaoResponseDTO } from "../../types/TransacaoTypes/TransacaoResponseDTO.ts";
 import {TransacaoService} from "../../services/TransacaoService.ts";
 import {Link} from "react-router-dom";
 

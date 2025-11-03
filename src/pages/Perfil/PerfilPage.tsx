@@ -1,8 +1,8 @@
 import {useEffect} from "react";
 import React from "react";
 import { Link } from "react-router-dom";
-import type {UsuarioPatchDTO} from "../../types/UsuarioPatchDTO.ts";
-import type {UsuarioDTO} from "../../types/UsuarioDTO.ts";
+import type {UsuarioPatchDTO} from "../../types/UsuarioTypes/UsuarioPatchDTO.ts";
+import type {UsuarioDTO} from "../../types/UsuarioTypes/UsuarioDTO.ts";
 import { tratarErros } from "../../utils/Utils.ts";
 import { atualizarUsuario } from "../../backend/api.ts";
 import {UsuarioService} from "../../services/UsuarioService.ts";

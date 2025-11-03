@@ -1,6 +1,6 @@
 import {api, buscarChaves} from "../backend/api.ts";
 import {UsuarioService} from "./UsuarioService.ts";
-import type {ChaveResponseDTO} from "../types/ChaveResponseDTO.ts";
+import type {ChaveResponseDTO} from "../types/ChaveTypes/ChaveResponseDTO.ts";
 
 export class ChaveService {
     private usuarioService = new UsuarioService();

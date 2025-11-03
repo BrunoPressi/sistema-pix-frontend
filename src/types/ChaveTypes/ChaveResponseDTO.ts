@@ -1,4 +1,4 @@
-import type {UsuarioResponseDTO} from "./UsuarioResponseDTO.ts";
+import type {UsuarioResponseDTO} from "../UsuarioTypes/UsuarioResponseDTO.ts";
 
 export class ChaveResponseDTO {
     id: number;
