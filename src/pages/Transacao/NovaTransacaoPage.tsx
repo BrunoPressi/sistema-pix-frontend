@@ -4,7 +4,7 @@ import type {TransacaoCreateDTO} from "../../types/TransacaoCreateDTO.ts";
 import {api, novaTransacao} from "../../backend/api.ts";
 import {UsuarioService} from "../../services/UsuarioService.ts";
 import type {ChaveResponseDTO} from "../../types/ChaveResponseDTO.ts";
-import {tratarErros} from "../../Utils/Utils.ts";
+import {tratarErros} from "../../utils/Utils.ts";
 import {ChaveService} from "../../services/ChaveService.ts";
 
 export function NovaTransacaoPage() {

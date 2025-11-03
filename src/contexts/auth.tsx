@@ -3,7 +3,7 @@ import {api, logoutAPI} from "../backend/api.ts";
 import { loginAPI } from "../backend/api.ts"
 import React from "react";
 import Cookies from "js-cookie";
-import {decodeToken} from "../Utils/Utils.ts";
+import {decodeToken} from "../utils/Utils.ts";
 import type {JwtPayload} from "jsonwebtoken";
 import type {LoginDTO} from "../types/LoginDTO.ts";
 

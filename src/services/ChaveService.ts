@@ -17,7 +17,7 @@ export class ChaveService {
             return response.Chaves;
         }
         catch (error: any) {
-            console.log(error);
+            throw error.response?.data || error;
         }
     }
 

@@ -15,7 +15,7 @@ export class UsuarioService {
             return response.Usuario;
         }
         catch (error: any) {
-            console.log(error);
+            throw error.response?.data || error;
         }
     }
 

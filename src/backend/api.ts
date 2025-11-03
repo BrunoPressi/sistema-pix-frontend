@@ -137,3 +137,13 @@ export const novaTransacao = async (transacao: TransacaoCreateDTO) => {
         throw error.response?.data || error;
     }
 }
+
+export const buscarTransacoes = async (usuarioID: number) => {
+    try {
+        const response = await api.get(`/usuarios/${usuarioID}/transacoes`);
+        return response.data;
+    }
+    catch (error: any) {
+        throw error.response?.data || error;
+    }
+}

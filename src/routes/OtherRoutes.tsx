@@ -6,6 +6,7 @@ import MinhasChavesPage from "../pages/Chave/MinhasChavesPage.tsx";
 import DefaultPage from "../pages/Default/DefaultPage.tsx";
 import PerfilPage from "../pages/Perfil/PerfilPage.tsx";
 import {NovaTransacaoPage} from "../pages/Transacao/NovaTransacaoPage.tsx";
+import MinhasTransacoesPage from "../pages/Transacao/MinhasTransacoesPage.tsx";
 
 export const OtherRoutes: React.FC = () => {
     return (
@@ -17,6 +18,7 @@ export const OtherRoutes: React.FC = () => {
                 <Route path="/PerfilPage" element={<PerfilPage/>}/>
                 <Route path="*" element={<DefaultPage/>}/>
                 <Route path="/NovaTransacaoPage" element={<NovaTransacaoPage/>}/>
+                <Route path="/MinhasTransacoesPage" element={<MinhasTransacoesPage/>}/>
             </Routes>
         </BrowserRouter>
     )
