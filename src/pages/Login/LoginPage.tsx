@@ -28,7 +28,7 @@ export default function LoginPage() {
     return (
         <>
 
-            <div className="bg-white/90 backdrop-blur-sm rounded-3xl shadow-2xl p-10 max-w-md mx-auto border border-gray-200">
+            <div className="bg-white/90 backdrop-blur-sm rounded-3xl shadow-2xl p-10 w-96 mx-auto border border-gray-200">
                 <form action={loginAction} className="space-y-8">
                     <div className="border-b border-gray-200 pb-6">
                         <h2 className="text-4xl font-bold text-gray-900 text-center">Login</h2>
