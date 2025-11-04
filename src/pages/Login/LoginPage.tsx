@@ -28,66 +28,73 @@ export default function LoginPage() {
     return (
         <>
 
-            <div className="bg-white rounded-2xl shadow-lg p-8">
-                <form action={loginAction}>
-                    <div className="space-y-12">
-                        <div className="border-b border-white/10 pb-8 ">
-                            <h2 className="text-3xl/7 font-semibold font- text-black">Login</h2>
+            <div className="bg-white/90 backdrop-blur-sm rounded-3xl shadow-2xl p-10 max-w-md mx-auto border border-gray-200">
+                <form action={loginAction} className="space-y-8">
+                    <div className="border-b border-gray-200 pb-6">
+                        <h2 className="text-4xl font-bold text-gray-900 text-center">Login</h2>
+                    </div>
 
-                            <div className="mt-10">
-                                <div className="sm:col-span-4">
-                                    <label htmlFor="cpf_cnpj"
-                                           className="block text-sm/6 font-medium text-black">CPF / CNPJ</label>
-                                    <div className="mt-2 w-80">
-                                        <div
-                                            className="flex items-center rounded-md bg-white/5 pl-3 w-full">
-                                            <input id="cpf_cnpj" type="text" name="cpf_cnpj"
-                                                   onChange={(e) => setLogin((prev) => ({...prev, cpf_cnpj: e.target.value}))}
-                                                   onClick={() => setMessage('')}
-                                                   placeholder='123.456.789.01 - XX.XXX.XXX/YYYY-ZZ'
-                                                   required={true}
-                                                   value={login.cpf_cnpj}
-                                                   pattern={'^(\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}|\\d{2}\\.\\d{3}\\.\\d{3}/\\d{4}-\\d{2})$'}
-                                                   className="w-full bg-gray-800 text-white border border-gray-700 rounded-lg p-2"
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div className="mt-3">
-                                <div className="sm:col-span-4">
-                                    <label htmlFor="senha"
-                                           className="block text-sm/6 font-medium text-black">Senha</label>
-                                    <div className="mt-2">
-                                        <div
-                                            className="flex items-center rounded-md bg-white/5 pl-3">
-                                            <input id="senha" type="password" name="senha"
-                                                   onChange={(e) => setLogin((prev) => ({...prev, senha: e.target.value}))}
-                                                   onClick={() => setMessage('')}
-                                                   placeholder='Senha123' required={true}
-                                                   className="w-full bg-gray-800 text-white border border-gray-700 rounded-lg p-2 focus:outline-none focus:ring-2 appearance-none"
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
+                    <div className="space-y-6">
+                        <div>
+                            <label
+                                htmlFor="cpf_cnpj"
+                                className="block text-sm font-medium text-gray-700 mb-2"
+                            >
+                                CPF / CNPJ
+                            </label>
+                            <input
+                                id="cpf_cnpj"
+                                type="text"
+                                name="cpf_cnpj"
+                                onChange={(e) =>
+                                    setLogin((prev) => ({ ...prev, cpf_cnpj: e.target.value }))
+                                }
+                                onClick={() => setMessage("")}
+                                placeholder="Seu CPF / CNPJ"
+                                required
+                                value={login.cpf_cnpj}
+                                pattern={
+                                    "^(\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}|\\d{2}\\.\\d{3}\\.\\d{3}/\\d{4}-\\d{2})$"
+                                }
+                                className="w-full px-4 py-3 rounded-xl border border-gray-300 bg-gray-50 text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200 outline-none"
+                            />
                         </div>
 
+                        <div>
+                            <label
+                                htmlFor="senha"
+                                className="block text-sm font-medium text-gray-700 mb-2"
+                            >
+                                Senha
+                            </label>
+                            <input
+                                id="senha"
+                                type="password"
+                                name="senha"
+                                onChange={(e) =>
+                                    setLogin((prev) => ({ ...prev, senha: e.target.value }))
+                                }
+                                onClick={() => setMessage("")}
+                                placeholder="Sua senha"
+                                required
+                                className="w-full px-4 py-3 rounded-xl border border-gray-300 bg-gray-50 text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200 outline-none"
+                            />
+                        </div>
                     </div>
 
-                    <div className="mt-1 flex items-center justify-center gap-x-6">
-                        <button type="submit"
-                                className="rounded-md bg-indigo-black px-3 py-2 text-base font-semibold text-white">Entrar
+                    <div className="pt-4">
+                        <button
+                            type="submit"
+                            className="w-full bg-indigo-600 hover:bg-indigo-700 active:scale-[0.98] transition-all text-white font-semibold py-3 rounded-xl shadow-md"
+                        >
+                            Entrar
                         </button>
                     </div>
-                    {message && (
-                        <p className={'text-red-600 mt-5'}>{message}</p>
-                    )}
+
+                    {message && <p className="text-red-600 text-center mt-4">{message}</p>}
                 </form>
             </div>
+
             <CadastroButton></CadastroButton>
         </>
     )
