@@ -2,15 +2,20 @@ import React, {useEffect} from "react";
 import type { TransacaoResponseDTO } from "../../types/TransacaoTypes/TransacaoResponseDTO.ts";
 import {TransacaoService} from "../../services/TransacaoService.ts";
 import {Link} from "react-router-dom";
+import {Paginação} from "../../components/Paginação.tsx";
 
 export default function MinhasTransacoesPage() {
     const transacaoService = new TransacaoService();
     const [transacaoes, setTransacoes] = React.useState<TransacaoResponseDTO[]>([]);
 
+    const [page, setPage] = React.useState(1);
+    const [totalPages, setTotalPages] = React.useState(1);
+
     const loadTransacoes = async () => {
         try {
-            const transacoesList: TransacaoResponseDTO[] = await transacaoService.buscarTransacoes();
-            setTransacoes(transacoesList);
+            const data: any = await transacaoService.buscarTransacoes(page);
+            setTransacoes(data.Transacoes);
+            setTotalPages(data.totalPages);
         }
         catch (error: any) {
             console.log(error);
@@ -19,7 +24,7 @@ export default function MinhasTransacoesPage() {
 
     useEffect(() => {
         loadTransacoes();
-    }, []);
+    }, [page]);
 
     return (
 
@@ -52,31 +57,37 @@ export default function MinhasTransacoesPage() {
                                     key={transacao.id}
                                     className="border-b border-gray-200 hover:bg-indigo-50 transition-colors duration-200"
                                 >
-                                    <td className="p-4">{transacao.id}</td>
-                                    <td className="p-4">{transacao.data}</td>
-                                    <td className="p-4 font-semibold text-green-600">
+                                    <td>{transacao.id}</td>
+                                    <td>{transacao.data}</td>
+                                    <td className="font-semibold text-green-600">
                                         R$ {Number(transacao.valor).toFixed(2)}
                                     </td>
                                     <td className="p-4 italic text-gray-600">
                                         {transacao.mensagem || "Sem mensagem"}
                                     </td>
-                                    <td className="p-4">{transacao.chaveOrigem.chave}</td>
-                                    <td className="p-4">{transacao.chaveDestino.chave}</td>
-                                    <td className="p-4">{transacao.chaveDestino.usuario.nome_completo}</td>
-                                    <td className="p-4">{transacao.chaveDestino.usuario.numero_conta}</td>
-                                    <td className="p-4">{transacao.chaveDestino.usuario.telefone}</td>
+                                    <td>{transacao.chaveOrigem.chave}</td>
+                                    <td>{transacao.chaveDestino.chave}</td>
+                                    <td>{transacao.chaveDestino.usuario.nome_completo}</td>
+                                    <td>{transacao.chaveDestino.usuario.numero_conta}</td>
+                                    <td>{transacao.chaveDestino.usuario.telefone}</td>
                                 </tr>
                             ))}
                             </tbody>
                         </table>
                     </div>
+
                 ) : (
                     <p className="text-center text-gray-700 font-medium mt-4">
                         Nenhuma transação encontrada.
                     </p>
                 )}
 
+                <div className="mt-8 flex flex-col sm:flex-row items-center justify-end">
+                    <Paginação paginaAtual={page} totalPaginas={totalPages} onPageChange={setPage}></Paginação>
+                </div>
+
                 <div className="mt-8 flex flex-col sm:flex-row items-center justify-end gap-4">
+
                     <Link to="/HomePage">
                         <button
                             type="button"

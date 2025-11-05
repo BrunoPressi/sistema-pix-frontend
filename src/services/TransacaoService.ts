@@ -6,12 +6,12 @@ export class TransacaoService {
     private usuarioService = new UsuarioService();
     private transacoes: TransacaoResponseDTO[] = [];
 
-    async buscarTransacoes() {
+    async buscarTransacoes(page: number) {
         try {
             api.defaults.headers.Authorization = `Bearer ${this.usuarioService.getToken()}`;
-            const transacoesList = await buscarTransacoes(this.usuarioService.getUserData()!.id);
-            this.setTransacoes(transacoesList);
-            return transacoesList.Transacoes;
+            const data = await buscarTransacoes(this.usuarioService.getUserData()!.id, page);
+            this.setTransacoes(data.Transacoes);
+            return data;
         }
         catch (error: any) {
             throw error.response?.data || error;

@@ -139,9 +139,9 @@ export const novaTransacao = async (transacao: TransacaoCreateDTO) => {
     }
 }
 
-export const buscarTransacoes = async (usuarioID: number) => {
+export const buscarTransacoes = async (usuarioID: number, page: number) => {
     try {
-        const response = await api.get(`/usuarios/${usuarioID}/transacoes`);
+        const response = await api.get(`/usuarios/${usuarioID}/transacoes?page=${page}`);
         return response.data;
     }
     catch (error: any) {
