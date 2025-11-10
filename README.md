@@ -4,6 +4,16 @@ Implementação Front-End da API Sistema PIX: [Repositório da API](https://gith
 
 ---
 
+## 📚 Sumário
+
+- [📚 Sumário](#-sumário)
+- [📌 Descrição](#-descrição)
+- [🚀 Tecnologias Utilizadas](#-tecnologias-utilizadas)
+- [📁 Estrutura do Projeto](#-estrutura-do-projeto)
+- [💻 Tutorial para rodar o projeto](#-tutorial-para-rodar-o-projeto) 
+
+---
+
 ## 📌 Descrição
 
 Este projeto foi desenvolvido como trabalho prático II na disciplina de Tópicos Especiais em Desenvolvimento de Software II no curso de Análise e Desenvolvimento de Sistemas. O projeto
@@ -44,6 +54,7 @@ src/
 ## 💻 Tutorial para rodar o projeto
  
 - Passo 1: Instalar o [NodeJS](https://nodejs.org/pt) ou `sudo apt install -y nodejs` no Linux.
+- Passo 2: Executar a API: [Tutorial Sistema Pix API](https://github.com/BrunoPressi/sistema-pix-api?tab=readme-ov-file#-tutorial-para-rodar-o-projeto)
 - Passo 2: Clonar o projeto em sua máquina
 - Passo 3: Abrir o terminal e executar `npm install`
 - Passo 4: `npm run dev` -> para executar o projeto
