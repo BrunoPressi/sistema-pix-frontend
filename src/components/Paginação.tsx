@@ -28,7 +28,7 @@ export function Paginação( { paginaAtual, totalPaginas, onPageChange }: Pagina
                 </button>
             </div>
 
-            <span>
+            <span className="text-green-700 p-4">
                 Página {paginaAtual} de {totalPaginas}
             </span>
 
