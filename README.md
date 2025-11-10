@@ -47,6 +47,7 @@ src/
 - Passo 2: Clonar o projeto em sua máquina
 - Passo 3: Abrir o terminal e executar `npm install`
 - Passo 4: `npm run dev` -> para executar o projeto
+- Passo 5: Acessar `http://localhost:5173` no seu navegador
 
 
 # Desenvolvido por: Bruno Pressi
