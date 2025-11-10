@@ -54,11 +54,11 @@ src/
 ## 💻 Tutorial para rodar o projeto
  
 - Passo 1: Instalar o [NodeJS](https://nodejs.org/pt) ou `sudo apt install -y nodejs` no Linux.
-- Passo 2: Executar a API: [Tutorial Sistema Pix API](https://github.com/BrunoPressi/sistema-pix-api?tab=readme-ov-file#-tutorial-para-rodar-o-projeto)
 - Passo 2: Clonar o projeto em sua máquina
 - Passo 3: Abrir o terminal e executar `npm install`
 - Passo 4: `npm run dev` -> para executar o projeto
-- Passo 5: Acessar `http://localhost:5173` no seu navegador
+- Passo 5: Executar a API: [Tutorial Sistema Pix API](https://github.com/BrunoPressi/sistema-pix-api?tab=readme-ov-file#-tutorial-para-rodar-o-projeto)
+- Passo 6: Acessar `http://localhost:5173` no seu navegador
 
 
 # Desenvolvido por: Bruno Pressi
