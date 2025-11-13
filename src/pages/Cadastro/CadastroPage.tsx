@@ -24,13 +24,17 @@ export default function CadastroPage() {
         telefone: '',
         bairro: '',
         cidade: '',
-        errorMessage: ''
+        errorMessage: '',
+        successMessage: ''
     });
 
     async function criarContaAction() {
         try {
             await criarConta(usuario)
-            navigate("/")
+            setMessage((prev: any) => ({...prev, successMessage: 'Usuário cadastrado com sucesso!'}));
+            setTimeout(() => {
+                navigate("/");
+            }, 1000);
         } catch (error: any) {
             tratarErros(error, setMessage)
         }
@@ -197,6 +201,13 @@ export default function CadastroPage() {
                     )}
 
                     <div className="flex items-center justify-end gap-x-4 pt-6">
+
+                        {message.successMessage && (
+                            <p className="text-green-600 text-center text-sm break-all whitespace-normal">
+                                {message.successMessage}
+                            </p>
+                        )}
+
                         <Link to="/">
                             <button
                                 type="button"
