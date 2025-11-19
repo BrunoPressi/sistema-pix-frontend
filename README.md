@@ -30,6 +30,7 @@ Este projeto foi desenvolvido como trabalho prático II na disciplina de Tópico
 - bcrypt v6.0.0
 - js-cookie 3.0.5
 - jsonwebtoken v9.0.2
+- cypress v15.6.0
 
 ---
 
