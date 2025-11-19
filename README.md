@@ -60,6 +60,7 @@ src/
 - Passo 4: `npm run dev` -> para executar o projeto
 - Passo 5: Executar a API: [Tutorial Sistema Pix API](https://github.com/BrunoPressi/sistema-pix-api?tab=readme-ov-file#-tutorial-para-rodar-o-projeto)
 - Passo 6: Acessar `http://localhost:5173` no seu navegador
+- Passo 7: Executar testes e2e: `npx cypress run`
 
 
 # Desenvolvido por: Bruno Pressi
